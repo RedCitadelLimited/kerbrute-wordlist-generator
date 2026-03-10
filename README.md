@@ -1,27 +1,79 @@
-## Getting First Name Data
+# Username Wordlist Generator
 
-The script automatically downloads the US baby name dataset published by the Social Security Administration.
+A Bash script that generates realistic **Active Directory username wordlists** using common first and last name datasets.
+
+The tool builds username lists based on common corporate naming conventions and outputs wordlists suitable for **username enumeration attacks** such as Kerberos user discovery.
+
+The script automatically downloads public datasets and processes them to create optimised username lists of approximately **200,000 guesses per format**.
+
+---
+
+# Features
+
+- Automatically downloads name datasets
+- Builds ranked lists of the most common names
+- Generates multiple common Windows username formats
+- Produces manageable wordlists (~200k entries)
+- Includes a large "generate everything" mode
+- Menu driven interface
+
+---
+
+# Username Formats Generated
+
+The script supports common corporate username formats including:
+
+```
+first.last
+first_last
+firstlast
+f.last
+f_last
+flast
+firstl
+last.first
+last_first
+lastf
+first.last1
+f.last1
+flast1
+```
+
+Example output:
+
+```
+john.smith
+john_smith
+johnsmith
+j.smith
+j_smith
+jsmith
+johns
+smith.john
+smith_john
+smithj
+john.smith1
+j.smith1
+jsmith1
+```
+
+---
+
+# Data Sources
+
+The script uses two public datasets to build realistic name lists.
+
+## First Names
+
+First names are downloaded from the US Social Security Administration baby name dataset.
 
 Dataset:
 
 https://www.ssa.gov/oact/babynames/names.zip
 
-This dataset contains yearly files such as:
+This dataset contains yearly baby name statistics from **1880 to present**.
 
-```
-yob1880.txt
-yob1881.txt
-...
-yob2023.txt
-```
-
-Each row follows this format:
-
-```
-firstname,gender,count
-```
-
-Example:
+Example record:
 
 ```
 James,M,5927
@@ -31,14 +83,14 @@ John,M,9655
 
 ### Processing Logic
 
-To build a realistic first name list, the script:
+The script:
 
 1. Reads every yearly dataset file
-2. Aggregates the total number of births for each first name
+2. Aggregates the total number of births for each name
 3. Ranks names by popularity
-4. Selects the most common names
+4. Selects the **top 400 most common names**
 
-Example processing pipeline:
+Example pipeline used:
 
 ```bash
 cat ssa/yob*.txt \
@@ -48,50 +100,137 @@ cat ssa/yob*.txt \
 | awk '{print tolower($2)}' > first.txt
 ```
 
-This produces a list of the **400 most common first names across all recorded years**, stored in:
+This produces:
 
 ```
 first.txt
 ```
 
-Example output:
+---
+
+## Surnames
+
+Surnames are taken from the **2010 US Census surname dataset**.
+
+Dataset:
+
+https://www2.census.gov/topics/genealogy/2010surnames/names.zip
+
+The script extracts the **500 most common surnames** and stores them in:
 
 ```
-james
-john
-mary
-robert
-michael
-william
-david
+surname.txt
 ```
-
-### Why This Approach Is Used
-
-Using the most common names:
-
-- avoids rare historical names
-- reduces dataset size
-- produces more realistic corporate usernames
-- keeps generated wordlists around **~200,000 entries per format**
 
 ---
 
-## Generated Name Lists
+# Wordlist Size
 
-The script produces two primary datasets:
-
-```
-first.txt      → 400 most common first names
-surname.txt    → 500 most common surnames
-```
-
-These sizes generate approximately:
+Using:
 
 ```
-400 × 500 ≈ 200,000 usernames per format
+400 first names
+500 surnames
 ```
 
-which is ideal for fast username enumeration.
+Each username format generates approximately:
+
+```
+400 × 500 = 200,000 usernames
+```
+
+This size is ideal for **fast username enumeration without excessive lockout risk**.
 
 ---
+
+# Installation
+
+Clone the repository:
+
+```
+git clone https://github.com/YOURNAME/USERNAME-REPO.git
+cd USERNAME-REPO
+```
+
+Make the script executable:
+
+```
+chmod +x *.sh
+```
+
+---
+
+# Usage
+
+Run the generator:
+
+```
+./username-generator.sh
+```
+
+You will be presented with a menu to select the username format.
+
+Example:
+
+```
+1) first.last
+2) first_last
+3) firstlast
+4) f.last
+5) f_last
+6) flast
+7) firstl
+8) last.first
+9) last_first
+10) lastf
+11) first.last1-9
+12) f.last1-9
+13) flast1-9
+14) Generate ALL
+15) a.surname → z.surname
+```
+
+Each option generates a corresponding wordlist file.
+
+---
+
+# Example Usage with Kerbrute
+
+The generated lists can be used for **Kerberos username enumeration** with Kerbrute.
+
+Example:
+
+```
+kerbrute userenum -d pirate.htb --dc 10.129.2.102 usernames1.txt
+```
+
+Tool:
+
+https://github.com/ropnop/kerbrute
+
+---
+
+# Output Size Examples
+
+Typical output sizes:
+
+```
+usernames1.txt   ≈ 200,000 usernames
+usernames2.txt   ≈ 200,000 usernames
+...
+usernames14.txt  ≈ 7,400,000 usernames
+usernames15.txt  ≈ 4,200,000 usernames
+```
+
+---
+
+# Disclaimer
+
+This tool is intended for:
+
+- authorised penetration testing
+- security research
+- lab environments
+- CTF challenges
+
+Do not use this tool against systems without permission.
