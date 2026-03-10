@@ -1,5 +1,3 @@
----
-
 ## Getting First Name Data
 
 The script automatically downloads the US baby name dataset published by the Social Security Administration.
