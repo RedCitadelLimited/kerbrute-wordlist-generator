@@ -122,6 +122,8 @@ fi
 echo ""
 echo "Username Wordlist Generator"
 echo ""
+echo "Each option will create a wordlist of 200000 guesses, apart from #14"
+echo ""
 echo "1) first.last"
 echo "2) first_last"
 echo "3) firstlast"
