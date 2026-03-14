@@ -8,6 +8,9 @@ SURNAME_FILE="surname.txt"
 FIRST_COUNT=400
 SURNAME_COUNT=500
 
+ADMIN_PREFIXES=("Adm_" "Adm-" "Adm" "Admin_" "Admin-" "Admin")
+ADMIN_SUFFIXES=("_Adm" "-Adm" "Adm" "_Admin" "-Admin" "Admin")
+
 prepare_datasets() {
 
 echo "[*] Downloading first name dataset..."
@@ -44,7 +47,7 @@ echo "[+] first.txt and surname.txt created"
 generate_format() {
 
 FORMAT=$1
-OUTPUT="usernames${FORMAT}.txt"
+OUTPUT=$2
 > "$OUTPUT"
 
 while read first; do
@@ -72,15 +75,11 @@ while read first; do
 
 done < "$FIRST_FILE" >> "$OUTPUT"
 
-COUNT=$(wc -l < "$OUTPUT")
-
-echo "[+] Created $OUTPUT ($COUNT usernames)"
-
 }
 
 generate_all() {
 
-OUTPUT="usernames14.txt"
+OUTPUT=$1
 > "$OUTPUT"
 
 while read first; do
@@ -109,9 +108,41 @@ while read first; do
 
 done < "$FIRST_FILE" >> "$OUTPUT"
 
-COUNT=$(wc -l < "$OUTPUT")
+}
 
-echo "[+] Created $OUTPUT ($COUNT usernames)"
+generate_prefix_admin() {
+
+INPUT=$1
+OUTPUT="Prefix-Admin.txt"
+> "$OUTPUT"
+
+while read user; do
+    for p in "${ADMIN_PREFIXES[@]}"; do
+        echo "${p}${user}"
+    done
+done < "$INPUT" >> "$OUTPUT"
+
+echo ""
+echo "[+] Created $OUTPUT"
+wc -l "$OUTPUT"
+
+}
+
+generate_suffix_admin() {
+
+INPUT=$1
+OUTPUT="Suffix-Admin.txt"
+> "$OUTPUT"
+
+while read user; do
+    for s in "${ADMIN_SUFFIXES[@]}"; do
+        echo "${user}${s}"
+    done
+done < "$INPUT" >> "$OUTPUT"
+
+echo ""
+echo "[+] Created $OUTPUT"
+wc -l "$OUTPUT"
 
 }
 
@@ -142,8 +173,66 @@ echo ""
 
 read -p "Select option: " option
 
+echo ""
+echo "Account Type"
+echo ""
+echo "1) User Accounts"
+echo "2) Admin Accounts"
+echo "3) All Accounts"
+echo ""
+
+read -p "Select option: " account_type
+
+BASE_FILE="base_usernames.tmp"
+
 if [ "$option" -eq 14 ]; then
-    generate_all
+    generate_all "$BASE_FILE"
 else
-    generate_format "$option"
+    generate_format "$option" "$BASE_FILE"
+fi
+
+if [ "$account_type" -eq 1 ]; then
+
+    mv "$BASE_FILE" "User-Accounts.txt"
+
+    echo ""
+    echo "[+] Created User-Accounts.txt"
+    wc -l "User-Accounts.txt"
+
+elif [ "$account_type" -eq 2 ]; then
+
+    echo ""
+    echo "Admin Format"
+    echo ""
+    echo "1) Prefix"
+    echo "2) Suffix"
+    echo "3) Both"
+    echo ""
+
+    read -p "Select option: " admin_type
+
+    if [ "$admin_type" -eq 1 ]; then
+        generate_prefix_admin "$BASE_FILE"
+
+    elif [ "$admin_type" -eq 2 ]; then
+        generate_suffix_admin "$BASE_FILE"
+
+    elif [ "$admin_type" -eq 3 ]; then
+        generate_prefix_admin "$BASE_FILE"
+        generate_suffix_admin "$BASE_FILE"
+    fi
+
+    rm "$BASE_FILE"
+
+elif [ "$account_type" -eq 3 ]; then
+
+    mv "$BASE_FILE" "User-Accounts.txt"
+
+    generate_prefix_admin "User-Accounts.txt"
+    generate_suffix_admin "User-Accounts.txt"
+
+    echo ""
+    echo "[+] Created User-Accounts.txt"
+    wc -l "User-Accounts.txt"
+
 fi
