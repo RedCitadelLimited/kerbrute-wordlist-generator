@@ -150,26 +150,47 @@ if [ ! -f "$FIRST_FILE" ] || [ ! -f "$SURNAME_FILE" ]; then
     prepare_datasets
 fi
 
+RED='\033[31m'
+WHITE='\033[97m'
+NC='\033[0m'
 echo ""
+echo ""
+echo -e "            ${RED}██████${WHITE}╗${RED} ███████${WHITE}╗${RED}██████${WHITE}╗"
+echo -e "            ${RED}██${WHITE}╔══${RED}██╗${RED}██${WHITE}╔════╝${RED}██${WHITE}╔══${RED}██${WHITE}╗"
+echo -e "            ${RED}██████${WHITE}╔╝${RED}█████${WHITE}╗  ${RED}██${WHITE}║  ${RED}██${WHITE}║"
+echo -e "            ${RED}██${WHITE}╔══${RED}██${WHITE}╗${RED}██${WHITE}╔══╝  ${RED}██${WHITE}║  ${RED}██${WHITE}║"
+echo -e "            ${RED}██${WHITE}║  ${RED}██${WHITE}║${RED}███████${WHITE}╗${RED}██████${WHITE}╔╝"
+echo -e "            ${WHITE}╚═╝  ╚═╝╚══════╝╚═════╝"
+
+echo -e " ${RED}██████${WHITE}╗${RED}██${WHITE}╗${RED}████████${WHITE}╗ ${RED}█████${WHITE}╗ ${RED}██████${WHITE}╗ ${RED}███████${WHITE}╗${RED}██${WHITE}╗"
+echo -e "${RED}██${WHITE}╔════╝${RED}██${WHITE}║╚══${RED}██${WHITE}╔══╝${RED}██${WHITE}╔══${RED}██${WHITE}╗${RED}██${WHITE}╔══${RED}██${WHITE}╗${RED}██${WHITE}╔════╝${RED}██${WHITE}║"
+echo -e "${RED}██${WHITE}║     ${RED}██${WHITE}║   ${RED}██${WHITE}║   ${RED}███████${WHITE}║${RED}██${WHITE}║  ${RED}██${WHITE}║${RED}█████${WHITE}╗  ${RED}██${WHITE}║"
+echo -e "${RED}██${WHITE}║     ${RED}██${WHITE}║   ${RED}██${WHITE}║   ${RED}██${WHITE}╔══${RED}██${WHITE}║${RED}██${WHITE}║  ${RED}██${WHITE}║${RED}██${WHITE}╔══╝  ${RED}██${WHITE}║"
+echo -e "${WHITE}╚${RED}██████${WHITE}╗${RED}██${WHITE}║   ${RED}██${WHITE}║   ${RED}██${WHITE}║  ${RED}██${WHITE}║${RED}██████${WHITE}╔╝${RED}███████${WHITE}╗${RED}███████${WHITE}╗"
+echo -e " ${WHITE}╚═════╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝"
+echo ""
+echo -e " ${RED}Affordable Penetration Testing ${WHITE}|${RED} redcitadel${WHITE}.${RED}co${WHITE}.${RED}uk"
+
+echo -e "${NC}"
+
 echo "Username Wordlist Generator"
 echo ""
-echo "Each option will create a wordlist of 200000 guesses, apart from #14"
-echo ""
-echo "1) first.last"
-echo "2) first_last"
-echo "3) firstlast"
-echo "4) f.last"
-echo "5) f_last"
-echo "6) flast"
-echo "7) firstl"
-echo "8) last.first"
-echo "9) last_first"
-echo "10) lastf"
-echo "11) first.last1-9"
-echo "12) f.last1-9"
-echo "13) flast1-9"
-echo "14) Generate ALL - (A regrettable 7400000 usernames!)"
-echo ""
+echo "======================================================================="
+echo "1) first.last     - Users: 200000  | Admin: 1200000  | Both: 2600000"
+echo "2) first_last     - Users: 200000  | Admin: 1200000  | Both: 2600000"
+echo "3) firstlast      - Users: 200000  | Admin: 1200000  | Both: 2600000"
+echo "4) f.last         - Users: 11000   | Admin: 66000    | Both: 143000"
+echo "5) f_last         - Users: 11000   | Admin: 66000    | Both: 143000"
+echo "6) flast          - Users: 11000   | Admin: 66000    | Both: 143000"
+echo "7) firstl         - Users: 10400   | Admin: 62400    | Both: 135200"
+echo "8) last.first     - Users: 200000  | Admin: 1200000  | Both: 2600000"
+echo "9) last_first     - Users: 200000  | Admin: 1200000  | Both: 2600000"
+echo "10) lastf         - Users: 13000   | Admin: 78000    | Both: 169000"
+echo "11) first.last1-9 - Users: 1800000 | Admin: 10800000 | Both: 23400000"
+echo "12) f.last1-9     - Users: 99000   | Admin: 594000   | Both: 1287000"
+echo "13) flast1-9      - Users: 99000   | Admin: 594000   | Both: 1287000"
+echo "14) Generate ALL  - Users: 7400000 | Admin: 44400000 | Both: 96200000"
+echo "======================================================================="
 
 read -p "Select option: " option
 
