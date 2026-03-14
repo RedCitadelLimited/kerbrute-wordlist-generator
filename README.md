@@ -4,7 +4,7 @@ A Bash script that generates realistic **Active Directory username wordlists** u
 
 The tool builds username lists based on common corporate naming conventions and outputs wordlists suitable for **username enumeration attacks** such as Kerberos user discovery.
 
-The script automatically downloads public datasets and processes them to create optimised username lists of approximately **200,000 guesses per format**.
+The script automatically downloads public datasets and processes them to create optimised username lists of approximately **200000 to 7000000 guesses per format**.
 
 ---
 
