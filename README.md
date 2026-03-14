@@ -13,9 +13,8 @@ The script automatically downloads public datasets and processes them to create 
 - Automatically downloads name datasets
 - Builds ranked lists of the most common names
 - Generates multiple common Windows username formats
-- Generates common **administrator account variations**
-- Produces manageable wordlists (~200k entries)
-- Includes a large "generate everything" mode
+- Option to gfenerate common **administrator account prefix and suffix variations**
+- Produces realistic wordlists sized from ~200k to ~7.4M entries depending on the selected mode- Includes a large "generate everything" mode
 - Menu driven interface
 - Displays final wordlist sizes
 
