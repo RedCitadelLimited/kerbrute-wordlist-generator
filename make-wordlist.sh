@@ -191,6 +191,8 @@ else
     generate_format "$option" "$BASE_FILE"
 fi
 
+sort -u "$BASE_FILE" -o "$BASE_FILE"
+
 if [ "$account_type" -eq 1 ]; then
 
     mv "$BASE_FILE" "User-Accounts.txt"
