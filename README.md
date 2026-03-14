@@ -13,9 +13,11 @@ The script automatically downloads public datasets and processes them to create 
 - Automatically downloads name datasets
 - Builds ranked lists of the most common names
 - Generates multiple common Windows username formats
+- Generates common **administrator account variations**
 - Produces manageable wordlists (~200k entries)
 - Includes a large "generate everything" mode
 - Menu driven interface
+- Displays final wordlist sizes
 
 ---
 
@@ -56,6 +58,134 @@ john.smith1
 j.smith1
 jsmith1
 ```
+
+---
+
+# Admin Account Generation
+
+The script can optionally generate **administrator account variations**.
+
+After selecting a username format, the script prompts for the account type:
+
+```
+1) User Accounts
+2) Admin Accounts
+3) All Accounts
+```
+
+---
+
+## User Accounts
+
+Generates the standard username list:
+
+```
+User-Accounts.txt
+```
+
+Typical size:
+
+```
+~200,000 usernames
+```
+
+---
+
+## Admin Accounts
+
+If **Admin Accounts** are selected, the script asks which format to generate:
+
+```
+1) Prefix
+2) Suffix
+3) Both
+```
+
+---
+
+### Admin Prefixes
+
+These prefixes are added to each username:
+
+```
+Adm_
+Adm-
+Adm
+Admin_
+Admin-
+Admin
+```
+
+Example output:
+
+```
+Admin_john.smith
+Adm-johnsmith
+Adminjsmith
+```
+
+Output file:
+
+```
+Prefix-Admin.txt
+```
+
+Approximate size:
+
+```
+~1,200,000 usernames
+```
+
+(6 prefix variants × 200,000 base usernames)
+
+---
+
+### Admin Suffixes
+
+These suffixes are appended to each username:
+
+```
+_Adm
+-Adm
+Adm
+_Admin
+-Admin
+Admin
+```
+
+Example output:
+
+```
+john.smith_Admin
+johnsmithAdm
+jsmith-Admin
+```
+
+Output file:
+
+```
+Suffix-Admin.txt
+```
+
+Approximate size:
+
+```
+~1,200,000 usernames
+```
+
+---
+
+## All Accounts
+
+Selecting **All Accounts** generates:
+
+```
+User-Accounts.txt
+Prefix-Admin.txt
+Suffix-Admin.txt
+```
+
+This provides a complete set of **standard users and common administrator naming conventions**.
 
 ---
 
@@ -139,7 +269,16 @@ Each username format generates approximately:
 400 × 500 = 200,000 usernames
 ```
 
-This size is ideal for **fast username enumeration without excessive lockout risk**.
+Admin account generation multiplies this by the number of admin variants.
+
+Typical sizes:
+
+```
+User-Accounts.txt      ≈ 200,000 usernames
+Prefix-Admin.txt       ≈ 1,200,000 usernames
+Suffix-Admin.txt       ≈ 1,200,000 usernames
+Generate ALL (#14)     ≈ 7,400,000 usernames
+```
 
 ---
 
@@ -187,10 +326,15 @@ Example:
 12) f.last1-9
 13) flast1-9
 14) Generate ALL
-15) a.surname → z.surname
 ```
 
-Each option generates a corresponding wordlist file.
+After selecting the format, you will then choose the **account type**.
+
+At completion the script displays the wordlist size using:
+
+```
+wc -l
+```
 
 ---
 
@@ -201,26 +345,12 @@ The generated lists can be used for **Kerberos username enumeration** with Kerbr
 Example:
 
 ```
-kerbrute userenum -d pirate.htb --dc 10.129.2.102 usernames1.txt
+kerbrute userenum -d pirate.htb --dc 10.129.2.102 User-Accounts.txt
 ```
 
 Tool:
 
 https://github.com/ropnop/kerbrute
-
----
-
-# Output Size Examples
-
-Typical output sizes:
-
-```
-usernames1.txt   ≈ 200,000 usernames
-usernames2.txt   ≈ 200,000 usernames
-...
-usernames14.txt  ≈ 7,400,000 usernames
-usernames15.txt  ≈ 4,200,000 usernames
-```
 
 ---
 
