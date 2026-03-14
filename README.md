@@ -286,8 +286,8 @@ Generate ALL (#14)     ≈ 7,400,000 usernames
 Clone the repository:
 
 ```
-git clone https://github.com/YOURNAME/USERNAME-REPO.git
-cd USERNAME-REPO
+git clone https://github.com/RedCitadelLimited/kerbrute-wordlist-generator.git
+cd kerbrute-wordlist-generator
 ```
 
 Make the script executable:
@@ -303,7 +303,7 @@ chmod +x *.sh
 Run the generator:
 
 ```
-./username-generator.sh
+./make-wordlist.sh
 ```
 
 You will be presented with a menu to select the username format.
@@ -344,7 +344,7 @@ The generated lists can be used for **Kerberos username enumeration** with Kerbr
 Example:
 
 ```
-kerbrute userenum -d pirate.htb --dc 10.129.2.102 User-Accounts.txt
+kerbrute userenum -d domain.local --dc 10.129.2.102 User-Accounts.txt
 ```
 
 Tool:
